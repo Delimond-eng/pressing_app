@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/"><i
+                        <li class="breadcrumb-item"><a href="/pressingapp"><i
                                         class="iconly-Home icli svg-color"></i></a></li>
                         <li class="breadcrumb-item">Facturation</li>
                         <li class="breadcrumb-item active">Liste des factures</li>
@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="card-header card-no-border pb-0 d-flex justify-content-between">
                         <h3>Liste des opérations</h3>
-                        <a class="btn btn-primary" href="/invoice"><i class="fa-solid fa-plus"></i>Nouvelle facture</a>
+                        <a class="btn btn-primary" href="/pressingapp/invoice"><i class="fa-solid fa-plus"></i>Nouvelle facture</a>
                     </div>
                     <div class="card-body pt-0 recent-order">
                         <div class="table-responsive theme-scrollbar">
@@ -67,7 +67,7 @@
                                         <ul class="dropdown-menu dropdown-block"> 
                                         <li><a class="dropdown-item" href="#">Supprimer</a></li>
                                         <li><a class="dropdown-item" href="#">Voir détails</a></li>
-                                        <li><a class="dropdown-item" href="#">imprimer</a></li>
+                                        <li><a class="dropdown-item" href="/pressingapp/single_print?id=<?= $fac["facture_id"] ?>">imprimer</a></li>
                                         </ul>
                                     </div>
                                     </td>

@@ -129,10 +129,14 @@
             <br><strong>GastonDel Pressing</strong>
         </p>
     </div>
-    <a href="/" class="hidden-print">Retour</a>
+    <a href="/pressingapp" class="hidden-print">Retour</a>
     <script>
         document.addEventListener("DOMContentLoaded", function(e){
             window.print();
+            
+            window.onafterprint = function() {
+                window.location.href = "/pressingapp"; 
+            };
         })
     </script>
 </body>

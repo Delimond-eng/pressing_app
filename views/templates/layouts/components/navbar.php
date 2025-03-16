@@ -56,7 +56,7 @@
                             <li class="d-flex">
                                 <svg class="svg-color">
                                     <use href="assets/svg/iconly-sprite.svg#Login"></use>
-                                </svg><a class="ms-2" href="/logout">Déconnexion</a>
+                                </svg><a class="ms-2" href="/pressingapp/logout">Déconnexion</a>
                             </li>
                         </ul>
                     </div>

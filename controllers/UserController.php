@@ -33,11 +33,11 @@ class UserController
             ];
             $user = $this->userModel->loginUser($data);   
             if($user){
-                redirect('/');
+                redirect('/pressingapp');
             }
             else{
                 setFlashMessage(type: "danger", message: "Email ou mot de passe incorrect");
-                redirect('/login');
+                redirect('/pressingapp/login');
             }
         }
     }
@@ -69,7 +69,7 @@ class UserController
                 ];
                 $response = $this->userModel->createUser($data);
                 setFlashMessage(type: "success", message: "Utilisateur créé avec succè !");
-                redirect("/users_manage");
+                redirect("/pressingapp/users_manage");
             }
         }
     }
@@ -79,6 +79,6 @@ class UserController
    /*  fonction pour deconnecter*/
     public function signOut(){
         unset($_SESSION["user"]);
-        redirect('/login');
+        redirect('/pressingapp/login');
     }
 }

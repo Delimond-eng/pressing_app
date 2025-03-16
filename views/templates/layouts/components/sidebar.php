@@ -15,7 +15,7 @@
                 </li>
 
                 <li class="sidebar-list"> <i class="fa-solid fa-thumbtack"></i>
-                    <a class="sidebar-link" href="/">
+                    <a class="sidebar-link" href="/pressingapp">
                         <svg class="stroke-icon">
                             <use href="assets/svg/iconly-sprite.svg#Paper"></use>
                         </svg>
@@ -33,7 +33,7 @@
                 </li>
                 
                 <li class="sidebar-list"> <i class="fa-solid fa-thumbtack"></i>
-                    <a class="sidebar-link" href="/users_manage">
+                    <a class="sidebar-link" href="/pressingapp/users_manage">
                         <svg class="stroke-icon">
                             <use href="assets/svg/iconly-sprite.svg#Profile"></use>
                         </svg>

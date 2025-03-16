@@ -48,7 +48,7 @@
                 <div>
 
                     <div class="login-main">
-                        <form class="theme-form"  method="POST" action="/sign_in">
+                        <form class="theme-form"  method="POST" action="/pressingapp/sign_in">
                             <h2 class="text-center">CONNEXION</h2>
                             <p class="text-center">Entrez vos identifiants pour vous connecter !</p>
                             <div class="form-group">

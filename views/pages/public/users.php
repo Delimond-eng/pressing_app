@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <?php displayFlashMessage(); ?>
-                        <form method="post" action="/create_user" class="stepper-one row g-3 d-flex align-items-end needs-validation custom-input">
+                        <form method="post" action="/pressingapp/create_user" class="stepper-one row g-3 d-flex align-items-end needs-validation custom-input">
                             <div class="col-6">
                                 <label class="form-label">Nom d'utilisateur<span class="text-danger">*</span></label>
                                 <input class="form-control" name="username" type="text" required placeholder="ex: Gaston">

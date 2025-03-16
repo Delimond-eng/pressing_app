@@ -51,16 +51,16 @@ class AppController
                 $invoiceDatas = $this->invoiceModel->printFacture($lastInsertedId);
                 if(isset($invoiceDatas)){
                     $_SESSION["invoiceDatas"] = $invoiceDatas;
-                    redirect("/print_invoice");
+                    redirect("/pressingapp/print_invoice");
                 }
                 else{
                     setFlashMessage(type: "warning", message: "Echec de l'impression de la facture");
-                    redirect("/invoice");
+                    redirect("/pressingapp/invoice");
                 }
             }
             else{
                 setFlashMessage(type: "warning", message: "Echec de la création de la facture !");
-                redirect("/invoice");
+                redirect("/pressingapp/invoice");
             }
         }
     }
@@ -73,6 +73,15 @@ class AppController
     public function manageUsers(){
         $users = $this->userModel->getAllUsers();
         renderView("users", ["users"=> $users]);
+    }
+
+    public function singlePrint(){
+        $factureID = $_GET["id"];
+        $invoiceDatas = $this->invoiceModel->printFacture($factureID);
+        if(isset($invoiceDatas)){
+            $_SESSION["invoiceDatas"] = $invoiceDatas;
+            redirect("/pressingapp/print_invoice");
+        }
     }
  
 

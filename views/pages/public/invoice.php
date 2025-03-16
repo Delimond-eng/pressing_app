@@ -20,7 +20,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <form class="card-body" method="post" action="/create_invoice">
+                    <form class="card-body" method="post" action="/pressingapp/create_invoice">
+
                         <?php displayFlashMessage(); ?>
                         <table class="table-wrapper table-responsive table-borderless theme-scrollbar">
                             <tbody>
