@@ -5,11 +5,11 @@ namespace Models;
 class Invoice extends Model {
     public function createFacture($data) {
         try {
-            $sql = "INSERT INTO factures (montant,devise, client_id, user_id) 
-            VALUES (:montant, :devise, :clientID, :userID)";
+            $sql = "INSERT INTO factures (montant,remise,client_id, user_id) 
+            VALUES (:montant,:remise, :clientID, :userID)";
             $params = [
                 ":montant" => $data["montant"],
-                ":devise" => $data["devise"],
+                ":remise" => $data["remise"],
                 ":clientID" => $data["clientID"],
                 ":userID" => $_SESSION["user"]["id"],
             ];

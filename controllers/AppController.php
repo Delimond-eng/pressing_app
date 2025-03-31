@@ -60,7 +60,7 @@ class AppController
             $data = [
                 "clientID"=> $clientID ?? null,
                 "montant"=> $montantFacture,
-                "remise"=>$client["remise"] ?? 0,
+                "remise"=>$client["remise"] ?? null,
                 "devise" => "USD",
                 "details"=> $details,
             ];

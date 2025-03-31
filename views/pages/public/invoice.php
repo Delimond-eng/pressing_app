@@ -159,21 +159,21 @@ document.addEventListener("DOMContentLoaded", function() {
         let qte = parseInt(row.querySelector(".qte").value) || 0;
         let subtotal = pu * qte;
 
-        row.querySelector(".subtotal").innerText = `$${subtotal.toFixed(2)}`;
+        row.querySelector(".subtotal").innerText = `${subtotal.toFixed(2)} F`;
         updateTotalGeneral();
     }
 
     function updateTotalGeneral() {
         let total = 0;
         document.querySelectorAll(".subtotal").forEach(subtotalElement => {
-            total += parseFloat(subtotalElement.innerText.replace("$", "")) || 0;
+            total += parseFloat(subtotalElement.innerText.replace("F", "")) || 0;
         });
         let remise = parseFloat(remiseInput.value) || 0;
         let remiseAmount = (total * remise) / 100;
         let totalAfterRemise = total - remiseAmount;
         
-        remiseDisplay.innerText = `$${remiseAmount.toFixed(2)}`;
-        totalGeneral.innerText = `$${totalAfterRemise.toFixed(2)}`;
+        remiseDisplay.innerText = `${remiseAmount.toFixed(2)} F`;
+        totalGeneral.innerText = `${totalAfterRemise.toFixed(2)} F`;
     }
 
     function removeRow(button) {
@@ -275,8 +275,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector("input[name='client[phone]']").value = "";
         document.querySelector("input[name='client[id]']").value = "";
         remiseInput.value = "";
-        remiseDisplay.innerText = "$0.00";
-        totalGeneral.innerText = "$0.00";
+        remiseDisplay.innerText = "0.00 F";
+        totalGeneral.innerText = "0.00 F";
         detailsContainer.innerHTML = "";
         rowIndex = 0;
         addDetailRow();

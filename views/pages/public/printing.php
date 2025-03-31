@@ -113,7 +113,7 @@
                 <tr>
                     <td class="description"><?= $detail["libelle"] ?></td>
                     <td class="quantity"><?= $detail["qte"] ?></td>
-                    <td class="price"><?= $detail["pu"] ?></td>
+                    <td class="price"><?= $detail["pu"] ?> F</td>
                 </tr>
                 <?php endforeach;?>
 
@@ -121,13 +121,13 @@
                     <!-- <td class="quantity"></td> -->
                     <td class="description"><strong>REMISE</strong></td>
                     <td></td>
-                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["remise"] ?></strong></td>
+                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["remise"] ?></strong> %</td>
                 </tr>
                 <tr>
                     <!-- <td class="quantity"></td> -->
                     <td class="description"><strong>TOTAL</strong></td>
                     <td></td>
-                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["montant"] ?></strong></td>
+                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["montant"] ?></strong> CDF</td>
                 </tr>
             </tbody>
         </table>
