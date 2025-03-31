@@ -24,12 +24,15 @@ function isAuthenticated(): bool {
 if (isAuthenticated()) {
     match ($uri) {
         "/" => (new AppController())->reporting(),
-        "/invoice" => renderView("invoice"),
+        "/invoice" => (new AppController())->showInvoice(),
         "/create_invoice" => (new AppController())->createInvoice(),
         "/print_invoice" => renderPrinting("printing"),
         "/users_manage" => (new AppController())->manageUsers(),
         "/create_user" => (new UserController())->registerUser(),
         "/single_print" => (new AppController())->singlePrint(),
+        "/config_manage" => (new AppController())->config(),
+        "/config_create" => (new AppController())->createSetting(),
+        "/config_delete" => (new AppController())->deleteSetting(),
         "/logout" => (new UserController())->signOut(),
         default => http_response_code(404) && exit("Erreur 404"),
     };

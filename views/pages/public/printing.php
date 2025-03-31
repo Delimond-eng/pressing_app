@@ -116,7 +116,13 @@
                     <td class="price"><?= $detail["pu"] ?></td>
                 </tr>
                 <?php endforeach;?>
-                
+
+                <tr>
+                    <!-- <td class="quantity"></td> -->
+                    <td class="description"><strong>REMISE</strong></td>
+                    <td></td>
+                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["remise"] ?></strong></td>
+                </tr>
                 <tr>
                     <!-- <td class="quantity"></td> -->
                     <td class="description"><strong>TOTAL</strong></td>
@@ -128,12 +134,12 @@
         <p class="centered">Merci pour votre confiance!
             <br><strong>GastonDel Pressing</strong>
         </p>
+        <br><br><br><br><br><br> <!-- Ajout de plusieurs sauts de ligne -->
     </div>
     <a href="/pressingapp" class="hidden-print">Retour</a>
     <script>
         document.addEventListener("DOMContentLoaded", function(e){
             window.print();
-            
             window.onafterprint = function() {
                 window.location.href = "/pressingapp"; 
             };

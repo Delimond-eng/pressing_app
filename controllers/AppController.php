@@ -5,11 +5,14 @@ namespace Controllers;
 
 use Models\Invoice;
 use Models\UserModel;
+use Models\Config;
 
 class AppController
 {
 
     private Invoice $invoiceModel;
+
+    private Config $configModel;
     private UserModel $userModel;
 
 
@@ -17,6 +20,14 @@ class AppController
     {
         $this->invoiceModel = new Invoice();
         $this->userModel = new UserModel();
+        $this->configModel = new Config();
+    }
+
+
+    public function showInvoice()  {
+        $costumers = $this->invoiceModel->getAllCostumers();
+        $configs = $this->configModel->getAllDatas();
+        renderView("invoice", ["configs"=> $configs, "clients"=>$costumers]);
     }
 
     /**
@@ -34,14 +45,22 @@ class AppController
                 $montantFacture += (double)$detail["pu"] * (double)$detail["qte"];
             }
 
-            $clientID = $this->invoiceModel->createCostumer([
-                "phone"=>$client["phone"],
-                "nom"=>$client["nom"],
-            ]);
+            $clientID = "";
+
+            if(isset($client["id"]) && !empty($client["id"])){
+                $clientID = $client["id"];
+            }
+            else{
+                $clientID = $this->invoiceModel->createCostumer([
+                    "phone"=>$client["phone"],
+                    "nom"=>$client["nom"],
+                ]);
+            }
 
             $data = [
                 "clientID"=> $clientID ?? null,
                 "montant"=> $montantFacture,
+                "remise"=>$client["remise"] ?? 0,
                 "devise" => "USD",
                 "details"=> $details,
             ];
@@ -82,6 +101,41 @@ class AppController
             $_SESSION["invoiceDatas"] = $invoiceDatas;
             redirect("/pressingapp/print_invoice");
         }
+    }
+
+
+    public function config(){ 
+        $all = $this->configModel->getAllDatas();
+        renderView("settings", ["settings"=> $all]);
+    }
+
+
+    public function createSetting(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                "libelle"=> htmlentities($_POST["libelle"]),
+                "pu"=>(double)htmlentities($_POST["pu"]),
+                "devise" => htmlentities($_POST["devise"]),
+            ];
+
+            $latestInsertID = $this->configModel->createConfig($data);
+            if(isset($latestInsertID)){
+                setFlashMessage(type: "success", message: "Configuration rubrique effectuée !");
+                redirect("/pressingapp/config_manage");
+            }
+            else{
+                setFlashMessage(type: "danger", message: "Echec de traitement de la requête !");
+                redirect("/pressingapp/config_manage");
+            }
+        }
+    }
+
+    public function deleteSetting(){
+        $id = $_GET["id"];
+        if(isset($id)){
+            $this->configModel->deleteConfig($id);
+        }
+        redirect("/pressingapp/config_manage");
     }
  
 

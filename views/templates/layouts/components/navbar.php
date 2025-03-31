@@ -22,7 +22,7 @@
             <div class="form-group-header d-lg-block d-none">
                 <div class="Typeahead Typeahead--twitterUsers">
                     <div class="u-posRelative d-flex align-items-center">
-                        <input class="demo-input py-0 Typeahead-input form-control-plaintext w-100" type="text" placeholder="Type to Search..." name="q" title="" /><i class="search-bg iconly-Search icli"></i>
+                        <input class="demo-input py-0 Typeahead-input form-control-plaintext w-100" type="text" placeholder="Recherche..." name="q" title="" /><i class="search-bg iconly-Search icli"></i>
                     </div>
                 </div>
             </div>
@@ -34,13 +34,15 @@
                     <a href="javascript:void(0)">
                         <svg>
                             <use href="assets/svg/iconly-sprite.svg#Search"></use>
-                        </svg></a>
+                        </svg>
+                    </a>
                 </li>
                 <li>
                     <a class="dark-mode" href="javascript:void(0)">
                         <svg>
                             <use href="assets/svg/iconly-sprite.svg#moondark"></use>
-                        </svg></a>
+                        </svg>
+                    </a>
                 </li>
                 <li class="profile-nav custom-dropdown">
                     <div class="user-wrap">
@@ -52,7 +54,6 @@
                     </div>
                     <div class="custom-menu overflow-hidden">
                         <ul class="profile-body">
-                            
                             <li class="d-flex">
                                 <svg class="svg-color">
                                     <use href="assets/svg/iconly-sprite.svg#Login"></use>

@@ -62,6 +62,11 @@ class Invoice extends Model {
         }
     }
 
+    public function getAllCostumers(){
+        $sql = "SELECT * FROM clients ORDER BY full_name ASC";
+        return $this->executeQuery($sql);
+    }
+
     public function printFacture($id){
         $factures = $this->executeQuery("SELECT * FROM factures WHERE facture_id=:id", [":id"=> $id]);
         if(isset($factures)){

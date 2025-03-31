@@ -40,6 +40,17 @@
                         <h6 class="f-w-600">Gestion utilisateurs </h6>
                     </a>
                 </li>
+                <li class="sidebar-list"> <i class="fa-solid fa-thumbtack"></i>
+                    <a class="sidebar-link" href="javascript:void(0)">
+                        <svg class="stroke-icon">
+                            <use href="assets/svg/iconly-sprite.svg#Setting"></use>
+                        </svg>
+                        <h6 class="f-w-600">Configurations</h6><i class="iconly-Arrow-Right-2 icli"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li> <a href="/pressingapp/config_manage">Produits & services</a></li>
+                    </ul>
+                </li>
                 <?php endif;?>
             </ul>
         </div>
