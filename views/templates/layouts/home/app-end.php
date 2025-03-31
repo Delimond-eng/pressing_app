@@ -29,6 +29,32 @@
 
 <!-- custom script -->
 <script src="assets/js/script.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+        if($("#existClient").length){
+            $("#existClient").select2({
+                placeholder:"Sélectionnez un client existant...",
+                closeOnSelect:true
+            }).on('select2:open', function() {
+                $('.select2-search__field').attr('placeholder', 'Recherchez un client...');
+            });
+
+            /* $("#existClient").on("change", function() {
+                let selectedOption = $(this).find("option:selected");
+                let clientInfo = selectedOption.data("info");
+                
+                if (clientInfo) {
+                    let client = clientInfo;
+                    $("input[name='client[nom]']").val(client.full_name || "");
+                    $("input[name='client[phone]']").val(client.phone || "");
+                    $("input[name='client[id]']").val(client.id || "");
+                }
+            }); */
+        }
+    })
+</script>
 </body>
 
 </html>

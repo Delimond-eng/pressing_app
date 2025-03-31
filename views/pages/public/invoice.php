@@ -138,43 +138,62 @@ document.addEventListener("DOMContentLoaded", function() {
     let remiseInput = document.querySelector("input[name='client[remise]']");
     let rowIndex = 0;
 
-    function updatePrice(select) {
-        let selectedOption = select.options[select.selectedIndex];
-        let prodInfo = selectedOption.getAttribute("data-info");
-
+    $(document).on("change", ".item-select", function() {
+        let selectedOption = $(this).find("option:selected");
+        let prodInfo = selectedOption.data("info");
+        
         if (prodInfo) {
-            let product = JSON.parse(prodInfo);
-            let row = select.closest("tr");
-            let puInput = row.querySelector(".pu");
-            let libelleInput = row.querySelector('.libelle')
-            puInput.value = product.prod_pu || 0;
-            libelleInput.value = product.prod_libelle || "";
-            calculateSubtotal(puInput);
+            let row = $(this).closest("tr");
+            row.find(".pu").val(prodInfo.prod_pu || 0);
+            row.find("input[name^='details'][name$='[libelle]']").val(prodInfo.prod_libelle || "");
+            calculateSubtotal(row.find(".pu"));
+        }
+    });
+
+    function checkDuplicateItem(select) {
+        let selectedValue = $(select).val();
+        if (!selectedValue) return;
+
+        let existingRow = $(".item-select").not(select).filter(function() {
+            return $(this).val() === selectedValue;
+        }).closest("tr");
+
+        if (existingRow.length) {
+            let existingQteInput = existingRow.find(".qte");
+            existingQteInput.val(parseInt(existingQteInput.val()) + 1);
+            calculateSubtotal(existingQteInput);
+            $(select).closest("tr").remove();
+            updateTotalGeneral();
+        } else {
+            updatePrice(select);
         }
     }
 
+
     function calculateSubtotal(input) {
-        let row = input.closest("tr");
-        let pu = parseFloat(row.querySelector(".pu").value) || 0;
-        let qte = parseInt(row.querySelector(".qte").value) || 0;
+        let row = $(input).closest("tr");
+        let pu = parseFloat(row.find(".pu").val()) || 0;
+        let qte = parseInt(row.find(".qte").val()) || 0;
         let subtotal = pu * qte;
 
-        row.querySelector(".subtotal").innerText = `${subtotal.toFixed(2)} F`;
+        row.find(".subtotal").text(`$${subtotal.toFixed(2)}`);
         updateTotalGeneral();
     }
 
     function updateTotalGeneral() {
         let total = 0;
-        document.querySelectorAll(".subtotal").forEach(subtotalElement => {
-            total += parseFloat(subtotalElement.innerText.replace("F", "")) || 0;
+        $(".subtotal").each(function() {
+            total += parseFloat($(this).text().replace("$", "")) || 0;
         });
+
         let remise = parseFloat(remiseInput.value) || 0;
         let remiseAmount = (total * remise) / 100;
         let totalAfterRemise = total - remiseAmount;
-        
-        remiseDisplay.innerText = `${remiseAmount.toFixed(2)} F`;
-        totalGeneral.innerText = `${totalAfterRemise.toFixed(2)} F`;
+
+        $(remiseDisplay).text(`$${remiseAmount.toFixed(2)}`);
+        $(totalGeneral).text(`$${totalAfterRemise.toFixed(2)}`);
     }
+
 
     function removeRow(button) {
         button.closest("tr").remove();
@@ -185,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let row = document.createElement("tr");
         row.innerHTML = `
             <td style="padding: 15px;">
-                <input type="text" class="libelle" name="details[${rowIndex}][libelle]" hidden required/>
+                <input type="text" name="details[${rowIndex}][libelle]" hidden required/>
                 <select class="form-select item-select">
                     <option value="" selected hidden> Sélectionnez une rubrique !</option>
                     <?php foreach($configs as $value):?>
@@ -194,74 +213,56 @@ document.addEventListener("DOMContentLoaded", function() {
                 </select>
             </td>
             <td style="width: 12%; text-align: center;">
-                <input type="number" name="details[${rowIndex}][pu]" class="form-control pu" placeholder="Prix unitaire..." min="0" step="0.01" readOnly required/>
+                <input type="number" name="details[${rowIndex}][pu]" class="form-control pu" placeholder="Prix unitaire..." min="0" step="0.01" required/>
             </td>
             <td style="width: 12%; text-align: center;">
                 <input type="number" value="1" name="details[${rowIndex}][qte]" class="form-control qte" placeholder="Qté..." min="1" step="1" required/>
             </td>
             <td style="width: 12%; text-align: center;">
-                <span class="subtotal" style="color: #308e87; font-weight: 600; opacity: 0.9;">0.00 F</span>
+                <span class="subtotal" style="color: #308e87; font-weight: 600; opacity: 0.9;">$0.00</span>
                 <button type="button" class="btn btn-sm ${rowIndex === 0 ? 'btn-primary add-detail' : 'btn-danger remove-detail'}">
                     <i class="fa-solid ${rowIndex === 0 ? 'fa-plus' : 'fa-close'}"></i>
                 </button>
             </td>
         `;
         detailsContainer.appendChild(row);
-        attachEventListeners(row);
+        $(row).find(".item-select").select2({
+            closeOnSelect:true,
+            placeholder:"Sélectionnez une rubrique..."
+        }).on('select2:open', function() {
+            $('.select2-search__field').attr('placeholder', 'Recherchez une rubrique...');
+        }); // Appliquer Select2
         rowIndex++;
-    }
-
-    function attachEventListeners(row) {
-        row.querySelector(".pu").addEventListener("input", function() {
-            calculateSubtotal(this);
-        });
-        row.querySelector(".qte").addEventListener("input", function() {
-            calculateSubtotal(this);
-        });
-        let removeButton = row.querySelector(".remove-detail");
-        if (removeButton) {
-            removeButton.addEventListener("click", function() {
-                removeRow(this);
-            });
-        }
-        row.querySelector(".item-select").addEventListener("change", function() {
-            checkDuplicateItem(this);
-        });
-    }
-
-    function checkDuplicateItem(select) {
-        let selectedValue = select.value;
-        if (!selectedValue) return;
-
-        let existingRow = [...document.querySelectorAll(".item-select")].find(el => el !== select && el.value === selectedValue);
-        if (existingRow) {
-            let existingQteInput = existingRow.closest("tr").querySelector(".qte");
-            existingQteInput.value = parseInt(existingQteInput.value) + 1;
-            calculateSubtotal(existingQteInput);
-            select.closest("tr").remove();
-            updateTotalGeneral();
-        } else {
-            updatePrice(select);
-        }
     }
 
     addDetailRow();
 
-    document.addEventListener("click", function(event) {
-        if (event.target.closest(".add-detail")) {
-            addDetailRow();
-        }
+    $(document).on("click", ".add-detail", function() {
+        addDetailRow();
+    });
+
+    $(document).on("click", ".remove-detail", function() {
+        $(this).closest("tr").remove();
+        updateTotalGeneral();
+    });
+
+    $(document).ready(function() {
+        $(".item-select").select2({
+            closeOnSelect:true,
+            placeholder:"Sélectionnez une rubrique...",
+        }).on('select2:open', function() {
+            $('.select2-search__field').attr('placeholder', 'Recherchez une rubrique...');
+        }); // Initialiser Select2 au chargement
     });
 
     // Remplissage automatique du client
-    document.getElementById("existClient").addEventListener("change", function() {
-        let selectedOption = this.options[this.selectedIndex];
-        let clientInfo = selectedOption.getAttribute("data-info");
+    $("#existClient").on("change", function() {
+        let selectedOption = $(this).find("option:selected");
+        let clientInfo = selectedOption.data("info");
         if (clientInfo) {
-            let client = JSON.parse(clientInfo);
-            document.querySelector("input[name='client[nom]']").value = client.full_name || "";
-            document.querySelector("input[name='client[phone]']").value = client.phone || "";
-            document.querySelector("input[name='client[id]']").value = client.id || "";
+            $("input[name='client[nom]']").val(clientInfo.full_name || "");
+            $("input[name='client[phone]']").val(clientInfo.phone || "");
+            $("input[name='client[id]']").val(clientInfo.id || "");
         }
     });
 
@@ -270,17 +271,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Annuler tout
     document.getElementById("btnCancel").addEventListener("click", function() {
-        document.getElementById("existClient").selectedIndex = 0;
-        document.querySelector("input[name='client[nom]']").value = "";
-        document.querySelector("input[name='client[phone]']").value = "";
-        document.querySelector("input[name='client[id]']").value = "";
+        $("#existClient").val(null).trigger("change");
+        $("input[name='client[nom]']").val("");
+        $("input[name='client[phone]']").val("");
+        $("input[name='client[id]']").val("");
         remiseInput.value = "";
-        remiseDisplay.innerText = "0.00 F";
-        totalGeneral.innerText = "0.00 F";
+        remiseDisplay.innerText = "$0.00";
+        totalGeneral.innerText = "$0.00";
         detailsContainer.innerHTML = "";
         rowIndex = 0;
         addDetailRow();
     });
 });
+
 
 </script>
