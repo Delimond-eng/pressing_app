@@ -89,6 +89,29 @@ class AppController
         $factures = $this->invoiceModel->getAllFactures();
         renderView("dashboard", ["factures"=> $factures]);
     }
+
+    public function makePayment(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                "amount"=> (double)htmlentities($_POST["amount"]),
+                "client_id"=> htmlentities($_POST["client_id"]),
+                "facture_id" => htmlentities($_POST["facture_id"]),
+            ];
+            $latestInsertID = $this->invoiceModel->payeFacture($data);
+            if(isset($latestInsertID)){
+                setFlashMessage(type: "success", message: "Paiement effectué avec succès !");
+                redirect("/pressingapp");
+            }
+            else{
+                setFlashMessage(type: "danger", message: "Echec de traitement de la requête !");
+                redirect("/pressingapp");
+            }
+        }
+    }
+    public function reportingPayment(){
+        $reports = $this->invoiceModel->getAllPaiements();
+        renderView("report", ["reports"=> $reports]);
+    }
     public function manageUsers(){
         $users = $this->userModel->getAllUsers();
         renderView("users", ["users"=> $users]);

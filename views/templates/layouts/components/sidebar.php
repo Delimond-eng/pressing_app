@@ -24,7 +24,7 @@
                 </li>
                 <?php if($_SESSION["user"]["role"] === "admin"):?>
                 <li class="sidebar-list"> <i class="fa-solid fa-thumbtack"></i>
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="/pressingapp/reporting">
                         <svg class="stroke-icon">
                             <use href="assets/svg/iconly-sprite.svg#Paper"></use>
                         </svg>

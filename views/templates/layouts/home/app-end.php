@@ -1,5 +1,4 @@
-
-<?php include __DIR__."/../components/footer.php";?>
+<?php include __DIR__ . "/../components/footer.php"; ?>
 </div>
 </div>
 <!-- jquery-->
@@ -25,6 +24,8 @@
 <!-- data_table-->
 <!-- swiper-->
 <script src="assets/js/vendors/swiper/swiper-bundle.min.js"></script>
+<script src="assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/js/js-datatables/datatables/datatable.custom1.js"></script>
 
 
 <!-- custom script -->
@@ -32,11 +33,11 @@
 
 
 <script>
-    $(document).ready(function(){
-        if($("#existClient").length){
+    $(document).ready(function() {
+        if ($("#existClient").length) {
             $("#existClient").select2({
-                placeholder:"Sélectionnez un client existant...",
-                closeOnSelect:true
+                placeholder: "Sélectionnez un client existant...",
+                closeOnSelect: true
             }).on('select2:open', function() {
                 $('.select2-search__field').attr('placeholder', 'Recherchez un client...');
             });
@@ -52,6 +53,61 @@
                     $("input[name='client[id]']").val(client.id || "");
                 }
             }); */
+        }
+        if ($("#tableDashboard").length) {
+            $("#tableDashboard").DataTable({
+                language: {
+                    searchPlaceholder: "Rechercher un élément...",
+                    sProcessing: "Traitement en cours...",
+                    sLengthMenu: "Afficher _MENU_ éléments",
+                    sZeroRecords: "Aucun élément correspondant trouvé",
+                    sInfo: "Affichage de _START_ à _END_ sur _TOTAL_ éléments",
+                    sInfoEmpty: "Affichage de 0 à 0 sur 0 éléments",
+                    sInfoFiltered: "(filtré de _MAX_ éléments au total)",
+                    sSearch: "",
+                    oPaginate: {
+                        sFirst: "Premier",
+                        sPrevious: "Précédent",
+                        sNext: "Suivant",
+                        sLast: "Dernier",
+                    },
+                },
+            });
+        }
+        if ($("#tableReport").length) {
+            var table = $('#tableReport').DataTable({
+                language: {
+                    searchPlaceholder: "Rechercher un élément...",
+                    sProcessing: "Traitement en cours...",
+                    sLengthMenu: "Afficher _MENU_ éléments",
+                    sZeroRecords: "Aucun élément correspondant trouvé",
+                    sInfo: "Affichage de _START_ à _END_ sur _TOTAL_ éléments",
+                    sInfoEmpty: "Affichage de 0 à 0 sur 0 éléments",
+                    sInfoFiltered: "(filtré de _MAX_ éléments au total)",
+                    sSearch: "",
+                    oPaginate: {
+                        sFirst: "Premier",
+                        sPrevious: "Précédent",
+                        sNext: "Suivant",
+                        sLast: "Dernier",
+                    },
+                }
+            });
+
+            function updateFooter() {
+                var total = 0;
+                table.column(4, {
+                    search: 'applied'
+                }).nodes().each(function(cell) {
+                    var value = $(cell).text().replace(/[^0-9.-]+/g, "");
+                    total += parseFloat(value) || 0; 
+                });
+                $('#tableReport tfoot td:eq(1)').html('<h6 class="fw-bold">' + total.toLocaleString('fr-FR') + ' F</h6>');
+            }
+            table.on('draw', function() {
+                updateFooter();
+            });
+            updateFooter();
         }
     })
 </script>

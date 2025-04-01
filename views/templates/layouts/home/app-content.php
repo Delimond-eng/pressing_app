@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/swiper-bundle.min.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/datatables.css" />
     <link rel="stylesheet" type="text/css" href="assets/js/vendors/select2/css/select2.min.css" />
     <!-- App css -->
     <link rel="stylesheet" href="assets/css/style.css" />

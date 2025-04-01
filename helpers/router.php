@@ -24,7 +24,9 @@ function isAuthenticated(): bool {
 if (isAuthenticated()) {
     match ($uri) {
         "/" => (new AppController())->reporting(),
+        "/reporting" => (new AppController())->reportingPayment(),
         "/invoice" => (new AppController())->showInvoice(),
+        "/order_invoice" => (new AppController())->makePayment(),
         "/create_invoice" => (new AppController())->createInvoice(),
         "/print_invoice" => renderPrinting("printing"),
         "/users_manage" => (new AppController())->manageUsers(),

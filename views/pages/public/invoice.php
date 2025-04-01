@@ -94,7 +94,7 @@
                                                             <li style="display:flex; padding-bottom: 16px; font-weight:900">
                                                                 <span style="display: block; width: 150px;">Remise</span>
                                                                 <span style="display: block; width: 25px;">:</span>
-                                                                <span id="remise" style="display: block; width: 95px; color:rgb(20, 116, 206); opacity: 0.9; font-weight:600;">0.00 F</span>
+                                                                <span id="remise" style="display: block; width: 95px; color:rgb(20, 116, 206); opacity: 0.9; font-weight:600;">-0.00 F</span>
                                                             </li>
                                                             <li style="display:flex; padding-bottom: 16px; font-weight:900">
                                                                 <span style="display: block; width: 150px;">Total Général</span>
@@ -141,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function() {
     $(document).on("change", ".item-select", function() {
         let selectedOption = $(this).find("option:selected");
         let prodInfo = selectedOption.data("info");
-        
         if (prodInfo) {
             let row = $(this).closest("tr");
             row.find(".pu").val(prodInfo.prod_pu || 0);
@@ -176,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let qte = parseInt(row.find(".qte").val()) || 0;
         let subtotal = pu * qte;
 
-        row.find(".subtotal").text(`$${subtotal.toFixed(2)}`);
+        row.find(".subtotal").text(`${subtotal.toFixed(2)} F`);
         updateTotalGeneral();
     }
 
