@@ -1,10 +1,6 @@
 <header class="page-header row">
     <div class="logo-wrapper d-flex align-items-center col-auto">
-        <a href="/"></a>
-        <a class="close-btn toggle-sidebar" href="javascript:void(0)">
-            <svg class="svg-color">
-                <use href="assets/svg/iconly-sprite.svg#Category"></use>
-            </svg></a>
+        
     </div>
     <div class="page-main-header col">
         <div class="header-left">

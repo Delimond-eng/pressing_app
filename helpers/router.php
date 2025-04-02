@@ -28,6 +28,7 @@ if (isAuthenticated()) {
         "/invoice" => (new AppController())->showInvoice(),
         "/order_invoice" => (new AppController())->makePayment(),
         "/create_invoice" => (new AppController())->createInvoice(),
+        "/delete_invoice" => (new AppController())->deleteFac(),
         "/print_invoice" => renderPrinting("printing"),
         "/users_manage" => (new AppController())->manageUsers(),
         "/create_user" => (new UserController())->registerUser(),

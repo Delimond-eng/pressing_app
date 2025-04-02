@@ -95,6 +95,7 @@
         <!-- <img src="./logo.png" alt="Logo"> -->
         <h1 class="title">PRESSING VESTON</h1>
 
+        <span class="heading-text"><strong>FACTURE NO :</strong> <span><?= $_SESSION["invoiceDatas"]["facture"]["facture_id"] ?></span></span>
         <span class="heading-text"><strong>Date :</strong> <span><?= date("d/m/Y", strtotime( $_SESSION["invoiceDatas"]["facture"]["created_at"])) ?></span></span>
         <span class="heading-text"><strong>Client :</strong> <span><?= $_SESSION["invoiceDatas"]["client"]["full_name"] ?></span></span>
         <span class="heading-text"><strong>Caissier :</strong> <span><?= $_SESSION["invoiceDatas"]["user"]["username"] ?></span></span>
@@ -117,17 +118,25 @@
                 </tr>
                 <?php endforeach;?>
 
-                <tr>
+                <tr style="border-bottom: none;">
                     <!-- <td class="quantity"></td> -->
                     <td class="description"><strong>REMISE</strong></td>
                     <td></td>
-                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["remise"] ?></strong> %</td>
+                    <td class="price"><strong>-<?= $_SESSION["invoiceDatas"]["facture"]["remise"] ?></strong> %</td>
                 </tr>
                 <tr>
                     <!-- <td class="quantity"></td> -->
                     <td class="description"><strong>TOTAL</strong></td>
                     <td></td>
-                    <td class="price"><strong><?= $_SESSION["invoiceDatas"]["facture"]["montant"] ?></strong> CDF</td>
+                    <?php 
+                        $montant = $_SESSION["invoiceDatas"]["facture"]["montant"];
+                        $discount = $_SESSION["invoiceDatas"]["facture"]["remise"];
+
+                        // Calcul du montant restant après remise
+                        $remise = ($discount !== 0) ? ($montant * $discount / 100) : 0;
+                        $htt = $montant - $remise;
+                    ?>
+                    <td class="price"><strong><?= $htt; ?></strong> CDF</td>
                 </tr>
             </tbody>
         </table>

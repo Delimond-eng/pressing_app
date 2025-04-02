@@ -125,6 +125,11 @@ class AppController
             redirect("/pressingapp/print_invoice");
         }
     }
+    public function deleteFac(){
+        $factureID = $_GET["id"];
+        $this->invoiceModel->deleteFacture($factureID);
+        redirect("/pressingapp");
+    }
 
 
     public function config(){ 

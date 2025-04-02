@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/"><i class="iconly-Home icli svg-color"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/pressingapp"><i class="iconly-Home icli svg-color"></i></a></li>
                         <li class="breadcrumb-item">App</li>
                         <li class="breadcrumb-item active">Gestion utilisateurs</li>
                     </ol>
@@ -70,7 +70,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0"><img src="assets/images/dashboard-1/user/1.png" alt=""></div>
+                                                <div class="flex-shrink-0"><img src="assets/images/user/user.png" style="height: 30px;" alt=""></div>
                                                 <div class="flex-grow-1">
                                                     <h6><?= $u["username"]?></h6>
                                                 </div>

@@ -65,13 +65,7 @@
                                             <td class="f-w-600"><?= $rp["username"] ?></td>
 
                                             <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
-                                                    <ul class="dropdown-menu dropdown-block">
-                                                        <li><a class="dropdown-item" href="#"><i class="icon-pencil-alt text-info me-2"></i> Voir détails</a></li>
-                                                        <li><a class="dropdown-item" href="/pressingapp/single_print?id=<?= $rp["facture_id"] ?>"><i class="icon-printer text-info me-2"></i> imprimer</a></li>
-                                                    </ul>
-                                                </div>
+                                                <button class="btn btn-pill btn-info btn-sm" type="button"><i class="icon-eye"></i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="card-header card-no-border mb-3 pb-0 d-flex justify-content-between">
                         <h3>Liste des opérations</h3>
-                        <a class="btn btn-primary" href="/pressingapp/invoice"><i class="fa-solid fa-plus"></i>Nouvelle facture</a>
+                        <a class="btn btn-info btn-lg" href="/pressingapp/invoice"><i class="fa-solid fa-plus fs-6 me-2"></i>Nouvelle facture</a>
                     </div>
                     <div class="card-body pt-0 recent-order">
                         <?php displayFlashMessage(); ?>
@@ -97,7 +97,7 @@
                                                         <?php endif; ?>
 
                                                         <?php if ($montant_paie == 0): ?>
-                                                            <li><a class="dropdown-item" href="#"> <i class="icon-trash text-danger"></i> Supprimer</a></li>
+                                                            <li><a class="dropdown-item" onclick="return confirm('Etes-vous sûr de vouloir continuer cette opération ??')" href="/pressingapp/delete_invoice?id=<?= $fac["facture_id"] ?>"> <i class="icon-trash text-danger"></i> Supprimer</a></li>
                                                         <?php endif; ?>
 
                                                         <li><a class="dropdown-item" href="#"><i class="icon-pencil-alt text-info me-2"></i> Voir détails</a></li>
@@ -107,7 +107,6 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
-
                                 </tbody>
                             </table>
                         </div>
@@ -117,12 +116,11 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="modal-payment" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <form method="post" action="/pressingapp/order_invoice" class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="myExtraLargeModal">Paiement Facture NO.</h3>
+                    <h3 class="modal-title fs-5" id="myExtraLargeModal">Paiement Facture NO. <span id="facno"></span></h3>
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body dark-modal">
@@ -143,20 +141,20 @@
                         <input type="text" id="clientID" name="client_id" hidden>
                         <div class="col">
                             <div class="mb-3">
-                                <label class="form-label" for="due-amount">Montant Dû(CDF)</label>
+                                <label class="form-label text-info" for="due-amount">Montant à payer</label>
                                 <input class="form-control border-primary" id="due-amount" type="text" placeholder="Montant dû" readonly>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
-                                <label class="form-label" for="last-pay-amount">Montant Payé(CDF)</label>
+                                <label class="form-label text-info" for="last-pay-amount">Paiement déjà effectué</label>
                                 <input class="form-control border-primary" id="last-pay-amount" type="text" placeholder="Montant Payé" readonly>
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
-                                <label class="form-label" for="pay-amount">Paiement Montant(CDF) <sup class="text-danger">*</sup></label>
-                                <input class="form-control border-info" id="pay-amount" name="amount" type="text" placeholder="Montant dû" required>
+                                <label class="form-label" for="pay-amount">Montant payé(CDF) <sup class="text-danger">*</sup></label>
+                                <input class="form-control border-info" id="pay-amount" name="amount" type="text" placeholder="Saisir le montant payé" required>
                             </div>
                         </div>
                     </div>
@@ -168,6 +166,10 @@
             </form>
         </div>
     </div>
+
+    <a href="/pressingapp/invoice" class="d-flex justify-content-center align-items-center" style="height: 50px; width: 50px; background-color: #02a2b9; box-shadow: 2px #000000; color: #ffffff; border-radius: 100%; position: fixed; bottom: 40px; right: 40px; z-index: 9999;">
+        <i class="icon-plus"></i>
+    </a>
 </div>
 
 <script>
@@ -176,6 +178,7 @@
         document.getElementById("client-phone").innerText = clientPhone;
         document.getElementById("clientID").value = clientId;
         document.getElementById("factureID").value = factureId;
+        document.getElementById("facno").innerText = factureId;
         let remise = parseInt(discount);
         if (remise !== 0) {
             let amount = parseFloat(dueAmount);

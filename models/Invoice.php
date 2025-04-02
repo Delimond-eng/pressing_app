@@ -91,9 +91,17 @@ class Invoice extends Model
         }
     }
 
+    public function deleteFacture($id){
+        $isDone = $this->executeDatas("DELETE FROM factures WHERE facture_id = :id", [":id"=>$id]);
+        if($isDone){
+            $this->executeDatas("DELETE FROM facture_details WHERE facture_id = :id", [":id"=>$id]);
+        }
+        return true;
+    }
+
     public function getAllFactures()
     {
-        $sql = "SELECT * FROM factures INNER JOIN clients ON factures.client_id = clients.id INNER JOIN users ON factures.user_id = users.id ORDER BY facture_id DESC";
+        $sql = "SELECT * FROM factures INNER JOIN clients ON factures.client_id = clients.id INNER JOIN users ON factures.user_id = users.id ORDER BY montant_paie ASC";
         return $this->executeQuery($sql);
     }
 

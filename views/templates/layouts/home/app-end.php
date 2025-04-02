@@ -1,4 +1,5 @@
 <?php include __DIR__ . "/../components/footer.php"; ?>
+<?php $session = json_encode($_SESSION["user"]); ?>
 </div>
 </div>
 <!-- jquery-->
@@ -34,6 +35,10 @@
 
 <script>
     $(document).ready(function() {
+        let user = <?= $session ?>;
+        if(user.role !== "admin"){
+            $("#pageWrapper").addClass("sidebar-open");
+        }
         if ($("#existClient").length) {
             $("#existClient").select2({
                 placeholder: "Sélectionnez un client existant...",
@@ -56,6 +61,7 @@
         }
         if ($("#tableDashboard").length) {
             $("#tableDashboard").DataTable({
+                order: [[4, "asc"]],
                 language: {
                     searchPlaceholder: "Rechercher un élément...",
                     sProcessing: "Traitement en cours...",
@@ -72,6 +78,12 @@
                         sLast: "Dernier",
                     },
                 },
+            });
+            $(".dataTables_filter input").on("focus", function(e){
+                $(this).val("Facture n°");
+            });
+            $(".dataTables_filter input").on("mouseleave", function(e){
+                $(this).val("");
             });
         }
         if ($("#tableReport").length) {
@@ -93,7 +105,6 @@
                     },
                 }
             });
-
             function updateFooter() {
                 var total = 0;
                 table.column(4, {
@@ -109,6 +120,8 @@
             });
             updateFooter();
         }
+        $(".dataTables_filter input").addClass("form-control border-primary");
+        $(".dataTables_length select").addClass("form-control border-primary");
     })
 </script>
 </body>

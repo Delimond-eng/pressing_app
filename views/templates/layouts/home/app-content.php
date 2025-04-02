@@ -36,6 +36,13 @@
     <!-- App css -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link id="color" rel="stylesheet" href="assets/css/color-1.css" media="screen" />
+    <style>
+        .select2-container {
+            width: 100% !important;
+            height: 40px !important;
+            margin: 0px important;
+        }
+    </style>
 </head>
 
 <body>

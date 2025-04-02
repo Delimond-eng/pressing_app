@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/"><i class="iconly-Home icli svg-color"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/pressingapp"><i class="iconly-Home icli svg-color"></i></a></li>
                         <li class="breadcrumb-item">Facturation</li>
                         <li class="breadcrumb-item active">nouvelle facture</li>
                     </ol>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <!-- Container-Fluid Starts-->
-    <div class="container invoice-2">
+    <div class="container-fluid invoice-2">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -81,7 +81,6 @@
                                         </table>
                                     </td>
                                 </tr>
-
                                 <tr style="height: 3px; width: 100%; background: linear-gradient(90deg, #308e87 20.61%, #0DA759 103.6%); display: block; margin-top: 6px;"></tr>
                                 <tr>
                                     <td>
@@ -168,7 +167,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-
     function calculateSubtotal(input) {
         let row = $(input).closest("tr");
         let pu = parseFloat(row.find(".pu").val()) || 0;
@@ -207,30 +205,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 <select class="form-select item-select">
                     <option value="" selected hidden> Sélectionnez une rubrique !</option>
                     <?php foreach($configs as $value):?>
-                    <option value="<?= $value["prod_id"]?>" data-info='<?= json_encode($value)?>'><?= $value["prod_libelle"]?></option>
+                        <option value="<?= $value["prod_id"]?>" data-info='<?= json_encode($value)?>'><?= $value["prod_libelle"]?></option>
                     <?php endforeach;?>
                 </select>
             </td>
             <td style="width: 12%; text-align: center;">
-                <input type="number" name="details[${rowIndex}][pu]" class="form-control pu" placeholder="Prix unitaire..." min="0" step="0.01" required/>
+                <input type="number" name="details[${rowIndex}][pu]" class="form-control form-control-lg me-2 pu" placeholder="PU..." min="0" step="0.01" readOnly required/>
             </td>
             <td style="width: 12%; text-align: center;">
-                <input type="number" value="1" name="details[${rowIndex}][qte]" class="form-control qte" placeholder="Qté..." min="1" step="1" required/>
+                <input type="number" value="1" name="details[${rowIndex}][qte]" class="form-control form-control-lg qte" placeholder="Qté..." min="1" step="1" required/>
             </td>
             <td style="width: 12%; text-align: center;">
-                <span class="subtotal" style="color: #308e87; font-weight: 600; opacity: 0.9;">$0.00</span>
+                <span class="subtotal" style="color: #308e87; font-weight: 600; opacity: 0.9;">0.00 F</span>
                 <button type="button" class="btn btn-sm ${rowIndex === 0 ? 'btn-primary add-detail' : 'btn-danger remove-detail'}">
                     <i class="fa-solid ${rowIndex === 0 ? 'fa-plus' : 'fa-close'}"></i>
                 </button>
             </td>
         `;
         detailsContainer.appendChild(row);
+        document.querySelectorAll(".qte").forEach(function(e){
+            e.addEventListener("input", function(e){
+                calculateSubtotal(this);
+            });
+        })
         $(row).find(".item-select").select2({
             closeOnSelect:true,
             placeholder:"Sélectionnez une rubrique..."
         }).on('select2:open', function() {
             $('.select2-search__field').attr('placeholder', 'Recherchez une rubrique...');
-        }); // Appliquer Select2
+        }); 
         rowIndex++;
     }
 
@@ -274,14 +277,12 @@ document.addEventListener("DOMContentLoaded", function() {
         $("input[name='client[nom]']").val("");
         $("input[name='client[phone]']").val("");
         $("input[name='client[id]']").val("");
-        remiseInput.value = "";
-        remiseDisplay.innerText = "$0.00";
-        totalGeneral.innerText = "$0.00";
+        remiseInput.value = "0";
+        remiseDisplay.innerText = "-0.00 F";
+        totalGeneral.innerText = "0.00 F";
         detailsContainer.innerHTML = "";
         rowIndex = 0;
         addDetailRow();
     });
 });
-
-
 </script>

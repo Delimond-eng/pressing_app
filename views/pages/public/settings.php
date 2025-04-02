@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6 col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/"><i class="iconly-Home icli svg-color"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/pressingapp"><i class="iconly-Home icli svg-color"></i></a></li>
                         <li class="breadcrumb-item">App</li>
                         <li class="breadcrumb-item active">Configurations</li>
                     </ol>
@@ -36,7 +36,6 @@
                                     <input class="form-control me-1" name="pu" type="text" required placeholder="ex: 500">
                                     <select name="devise" style="width: 100px;" class="form-control">
                                         <option value="CDF" selected>CDF</option>
-                                        <option value="USD">USD</option>
                                     </select>
                                 </div>
                             </div>

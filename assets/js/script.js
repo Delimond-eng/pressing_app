@@ -13,16 +13,28 @@
 document.addEventListener("DOMContentLoaded", function () {
   const body = document.querySelector("body");
   const html = document.querySelector("html");
-    /*=====================
+  /*=====================
         01 Loader Js
     ==========================*/
-    $(".loader-wrapper").fadeOut("slow", function () {
-      $(this).remove();
-    });
+  $(".loader-wrapper").fadeOut("slow", function () {
+    $(this).remove();
+  });
+
+  if ($(".footer-copyright").length) {
+    $(".footer-copyright").html(
+      "<p class='mb-0'>&copy; By Rapid Tech Solution. DRC Kinshasa </p>"
+    );
+  }
+
+  if ($(".logo-wrapper").length) {
+    $(".logo-wrapper").html(
+      "<a href='/pressingapp'><h1 style='color:#fff !important' class='fw-bold'>Rapid Tech. </h1></a><a class='close-btn toggle-sidebar' href='javascript:void(0)'><svg class='svg-color'><use href='assets/svg/iconly-sprite.svg#Category'></use></svg></a>"
+    );
+  }
   /*=====================
         02 Tap to top js
     ==========================*/
-  const button = document.querySelector(".tap-top");
+  /* const button = document.querySelector(".tap-top");
   const displayButton = () => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 100) {
@@ -31,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
         button.style.display = "none";
       }
     });
-  };
-  const scrollToTop = () => {
+  }; */
+  /* const scrollToTop = () => {
     button.addEventListener("click", () => {
       window.scroll({
         top: 0,
@@ -43,7 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
   displayButton();
-  scrollToTop();
+  scrollToTop(); */
+
   /*=====================
       03 Header DropDown Toggle
   ==========================*/
@@ -69,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $(document).ready(function () {
     $(".full-screen").click(function (event) {
       var elem = document.documentElement;
-  
+
       if (
         (document.fullScreenElement && document.fullScreenElement !== null) ||
         (!document.mozFullScreen && !document.webkitIsFullScreen)
@@ -92,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-  
+
   /*=====================
        05. Header search js
      ==========================*/
@@ -111,35 +124,33 @@ document.addEventListener("DOMContentLoaded", function () {
   /*=====================
        05. Dark Mode js
     ==========================*/
-    if(window.location.pathname.includes("layout-dark.html")){
-      $("body").removeClass("light");
-      $("body").addClass("dark-only");
-      }else{
-      $(".dark-mode").on("click", function () {
+  if (window.location.pathname.includes("layout-dark.html")) {
+    $("body").removeClass("light");
+    $("body").addClass("dark-only");
+  } else {
+    $(".dark-mode").on("click", function () {
       const bodyModeDark = $("body").hasClass("dark-only");
-      if(!window.location.pathname.includes("layout-dark.html")){
-      if (!bodyModeDark) {
-      $(".dark-mode").addClass("active");
-      localStorage.setItem("mode", "dark-only");
-      $("body").addClass("dark-only");
-      $("body").removeClass("light");
+      if (!window.location.pathname.includes("layout-dark.html")) {
+        if (!bodyModeDark) {
+          $(".dark-mode").addClass("active");
+          localStorage.setItem("mode", "dark-only");
+          $("body").addClass("dark-only");
+          $("body").removeClass("light");
+        } else {
+          $(".dark-mode").removeClass("active");
+          localStorage.setItem("mode", "light");
+          $("body").removeClass("dark-only");
+          $("body").addClass("light");
+        }
       }
-      else{
-      $(".dark-mode").removeClass("active");
-      localStorage.setItem("mode", "light");
-      $("body").removeClass("dark-only");
-      $("body").addClass("light");
-      }
-      }
-      });
-      $("body").addClass(
-      localStorage.getItem("mode")
-      ? localStorage.getItem("mode")
-      : "light"
-      );
-      $(".dark-mode").addClass(
+    });
+    $("body").addClass(
+      localStorage.getItem("mode") ? localStorage.getItem("mode") : "light"
+    );
+    $(".dark-mode").addClass(
       localStorage.getItem("mode") === "dark-only" ? "active" : " "
-      )}
+    );
+  }
   // product-page-js-start
   var toggleDataElements = document.querySelectorAll(".toggle-data");
   toggleDataElements.forEach(function (element) {
